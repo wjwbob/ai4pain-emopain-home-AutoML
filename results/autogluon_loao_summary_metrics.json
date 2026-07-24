@@ -1,0 +1,44 @@
+{
+  "n_segments": 526,
+  "n_activity_instances": 54,
+  "n_feature_columns": 2550,
+  "feature_selection_mode": "all_features",
+  "validation_selection_mode": "next_group_in_sorted_activity_instance_order",
+  "selected_feature_count": 2550,
+  "outer_folds_completed": 54,
+  "outer_folds_total": 54,
+  "accuracy": 0.5551330798479087,
+  "balanced_accuracy": 0.49428782468398563,
+  "weighted_f1": 0.5551685570189716,
+  "macro_f1": 0.49506119063010673,
+  "class_order": [
+    "LP",
+    "MP",
+    "HP"
+  ],
+  "confusion_matrix": [
+    [
+      34,
+      24,
+      25
+    ],
+    [
+      30,
+      199,
+      66
+    ],
+    [
+      17,
+      72,
+      59
+    ]
+  ],
+  "class_distribution": {
+    "HP": 148,
+    "LP": 83,
+    "MP": 295
+  },
+  "ag_presets": "medium_quality",
+  "ag_model_preset": "default",
+  "outer_folds_run": 54
+}

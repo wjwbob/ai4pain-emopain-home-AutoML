@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and local configuration
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Restricted or derived research data
+EmoPainatHome_pain/
+EmoPain(at)Home_healthy/
+data/
+preprocessed_data/
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.mat
+*.csv
+
+# Model artefacts and experiment outputs
+AutogluonModels/
+autogluon_runs/
+baseline_outputs*/
+pereira_loao_outputs*/
+feature_importance_outputs/
+checkpoints/
+*.joblib
+*.ckpt
+*.pth
+*.pt
+
+# Archives and office working files
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.doc
+*.docx
+
+# Notebook checkpoints
+.ipynb_checkpoints/
