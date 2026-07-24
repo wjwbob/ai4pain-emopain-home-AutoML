@@ -6,11 +6,10 @@
 
 Research code for classifying low, medium, and high pain from skeleton movement
 sequences in the AI4Pain 2026 Movement Track. The repository focuses on
-leakage-aware evaluation, interpretable handcrafted motion features, and a
-controlled comparison between an AutoGluon baseline and a compact
-pairwise-distance SVR pipeline.
+leakage-aware evaluation, interpretable handcrafted motion features, and an
+AutoGluon baseline for reproducible three-class pain classification.
 
-![LOAO confusion-matrix comparison](results/loao_confusion_matrix_comparison.png)
+![AutoGluon baseline row-normalized confusion matrix](results/baseline_confusion_matrix.png)
 
 ## What this repository demonstrates
 
@@ -21,57 +20,50 @@ pairwise-distance SVR pipeline.
 - Fold-local scaling, feature selection, missing-value handling, and SMOTE to
   reduce information leakage.
 - AutoGluon model selection and ensemble reporting.
-- An independent LOAO re-evaluation of a pairwise-distance SVR method with
-  healthy-control PCA augmentation.
 - Reproducible command-line workflows for feature extraction, training,
   evaluation, and figure generation.
 
 ```mermaid
 flowchart LR
-    A["Skeleton sequences<br/>6 joints × XYZ"] --> B["Movement features"]
+    A["Skeleton sequences<br/>6 joints x XYZ"] --> B["Movement features"]
     B --> C["Group-aware LOAO splits"]
     C --> D["Train-fold preprocessing"]
     D --> E["AutoGluon classifier"]
-    D --> F["Distance-feature SVR"]
-    E --> G["LP / MP / HP"]
-    F --> G
-    G --> H["Aggregate metrics<br/>and visual audit"]
+    E --> F["LP / MP / HP"]
+    F --> G["Aggregate metrics<br/>and visual audit"]
 ```
 
-## Snapshot of results
+## Baseline results
 
-Both rows below use the same 526 pain segments and 54 held-out activity
-instances. These are experiment snapshots, not claims of clinical validity.
+The baseline was evaluated on 526 pain segments across 54 held-out activity
+instances. These are experimental results, not claims of clinical validity.
 
 | Pipeline | Accuracy | Balanced accuracy | Macro F1 | Weighted F1 |
 |---|---:|---:|---:|---:|
 | AutoGluon baseline | 0.555 | 0.494 | 0.495 | 0.555 |
-| Pairwise-distance SVR re-evaluation | 0.584 | 0.558 | 0.547 | 0.587 |
 
-Machine-readable aggregate results are available in [`results/`](results/).
-The exact method reuse and deviations for the SVR comparison are documented in
-[`docs/PEREIRA_LOAO_AUDIT.md`](docs/PEREIRA_LOAO_AUDIT.md).
+The row-normalized confusion matrix above shows recalls of 0.41 for LP, 0.67
+for MP, and 0.40 for HP. Machine-readable aggregate results are available in
+[`results/autogluon_loao_summary_metrics.json`](results/autogluon_loao_summary_metrics.json).
 
 ## Repository layout
 
 ```text
 .
-├── src/
-│   ├── emopain_autogluon_baseline.py
-│   ├── emopain_data_utils.py
-│   ├── evaluate_pereira_loao.py
-│   ├── export_emopain_features_to_csv.py
-│   └── plot_*.py
-├── tests/
-│   └── test_emopain_data_utils.py
-├── docs/
-│   ├── DATA.md
-│   └── PEREIRA_LOAO_AUDIT.md
-├── results/
-│   ├── loao_confusion_matrix_comparison.png
-│   └── *_summary_metrics.json
-├── requirements.txt
-└── requirements-dev.txt
+|-- src/
+|   |-- emopain_autogluon_baseline.py
+|   |-- emopain_data_utils.py
+|   |-- export_emopain_features_to_csv.py
+|   `-- plot_*.py
+|-- tests/
+|   `-- test_emopain_data_utils.py
+|-- docs/
+|   `-- DATA.md
+|-- results/
+|   |-- baseline_confusion_matrix.png
+|   `-- autogluon_loao_summary_metrics.json
+|-- requirements.txt
+`-- requirements-dev.txt
 ```
 
 ## Quick start
@@ -113,14 +105,6 @@ python src/emopain_autogluon_baseline.py \
   --time-limit 45 \
   --ag-presets medium_quality \
   --ag-model-preset tabular_fast
-```
-
-Run the independent pairwise-distance SVR re-evaluation:
-
-```bash
-python src/evaluate_pereira_loao.py \
-  --output-dir pereira_loao_outputs \
-  --training-mode overlapped
 ```
 
 Export one-second window features for analysis:

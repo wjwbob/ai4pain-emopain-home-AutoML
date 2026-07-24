@@ -26,8 +26,8 @@ ai4pain-emopain-movement-analysis/
 └── ...
 ```
 
-The healthy cohort is used only where a command explicitly enables the
-healthy-reference PCA workflow. It is not treated as the low-pain class.
+The AutoGluon baseline uses the chronic-pain cohort only. The healthy cohort is
+not used for training or evaluation and is not treated as the low-pain class.
 
 ## Supported input
 
